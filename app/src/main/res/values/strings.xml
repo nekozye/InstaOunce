@@ -7,4 +7,6 @@
     <string name="back4app_server_url">https://parseapi.back4app.com</string>
     <string name="back4app_app_id">WMoaIeVL6GLL0L7aZSTqjBIVlPSCuoBsuEn9XJVD</string>
     <string name="back4app_client_key">aAMo0IadU6X3wpmz4TInzc44VQCpTmUQ170p7YRp</string>
+    <string name="description_text_prompt">Description...</string>
+    <string name="post_button_prompt">Submit</string>
 </resources>
