@@ -18,12 +18,7 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId(APP_ID)
-                .clientKey(CLIENT_KEY)
-                .server("https://parseapi.back4app.com")
-                .build()
-        );
+
 
         Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
 
@@ -32,9 +27,15 @@ public class ParseApplication extends Application {
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.networkInterceptors().add(httpLoggingInterceptor);
 
-        // New test creation of object below
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId(APP_ID)
+                .clientKey(CLIENT_KEY)
+                .server("https://parseapi.back4app.com")
+                .build()
+        );
+
         ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
+        testObject.put("foo","bar");
         testObject.saveInBackground();
     }
 }
