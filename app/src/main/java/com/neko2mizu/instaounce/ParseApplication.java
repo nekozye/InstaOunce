@@ -8,8 +8,6 @@ import android.app.Application;
 
 public class ParseApplication extends Application {
 
-    private static final String CLIENT_KEY = "";
-
     // Initializes Parse SDK as soon as the application is created
     @Override
     public void onCreate() {
@@ -36,4 +34,5 @@ public class ParseApplication extends Application {
                 .build()
         );
     }
+
 }

@@ -2,11 +2,12 @@
     <string name="app_name">InstaOunce</string>
     <string name="username_text_prompt">username</string>
     <string name="password_text_prompt">password</string>
-    <string name="login_button_text">Login</string>
+    <string name="login_button_text">LOG IN</string>
 
     <string name="back4app_server_url">https://parseapi.back4app.com</string>
     <string name="back4app_app_id">WMoaIeVL6GLL0L7aZSTqjBIVlPSCuoBsuEn9XJVD</string>
     <string name="back4app_client_key">aAMo0IadU6X3wpmz4TInzc44VQCpTmUQ170p7YRp</string>
     <string name="description_text_prompt">Description...</string>
     <string name="post_button_prompt">Submit</string>
+    <string name="register_button_text">SIGN UP</string>
 </resources>
