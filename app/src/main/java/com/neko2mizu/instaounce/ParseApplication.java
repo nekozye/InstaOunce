@@ -10,8 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public class ParseApplication extends Application {
 
-    private static final String APP_ID = "WMoaIeVL6GLL0L7aZSTqjBIVlPSCuoBsuEn9XJVD";
-    private static final String CLIENT_KEY = "aAMo0IadU6X3wpmz4TInzc44VQCpTmUQ170p7YRp";
+    private static final String CLIENT_KEY = "";
 
     // Initializes Parse SDK as soon as the application is created
     @Override
@@ -28,14 +27,10 @@ public class ParseApplication extends Application {
         builder.networkInterceptors().add(httpLoggingInterceptor);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId(APP_ID)
-                .clientKey(CLIENT_KEY)
-                .server("https://parseapi.back4app.com")
+                .applicationId(getString(R.string.back4app_app_id))
+                .clientKey(getString(R.string.back4app_client_key))
+                .server(getString(R.string.back4app_server_url))
                 .build()
         );
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo","bar");
-        testObject.saveInBackground();
     }
 }
