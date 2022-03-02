@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.tv.TvContract;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.neko2mizu.instaounce.objects.Post;
@@ -42,6 +44,8 @@ public class PostActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
+
+    private ProgressBar pbDurringPost;
 
     private String photoFileName = "photo.jpg";
     private File photoFile;
@@ -77,6 +81,7 @@ public class PostActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        pbDurringPost = findViewById(R.id.pbDurringPost);
 
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
@@ -90,19 +95,25 @@ public class PostActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                pbDurringPost.setVisibility(ProgressBar.VISIBLE);
+
                 String description = etmlDescription.getText().toString();
                 if (description.isEmpty()){
                     Toast.makeText(PostActivity.this, "Description cannot be empty.", Toast.LENGTH_SHORT).show();
+                    pbDurringPost.setVisibility(ProgressBar.INVISIBLE);
                     return;
                 }
                 if (photoFile == null || ivPostImage.getDrawable() == null){
                     Toast.makeText(PostActivity.this, "There was no Image!", Toast.LENGTH_SHORT).show();
+                    pbDurringPost.setVisibility(ProgressBar.INVISIBLE);
                     return;
                 }
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser,photoFile);
-
+                pbDurringPost.setVisibility(ProgressBar.INVISIBLE);
+                Toast.makeText(PostActivity.this, "Posted!", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -10,4 +10,5 @@
     <string name="description_text_prompt">Description...</string>
     <string name="post_button_prompt">Submit</string>
     <string name="register_button_text">SIGN UP</string>
+    <string name="logout_button_text">Log Off</string>
 </resources>

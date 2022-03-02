@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (ParseUser.getCurrentUser() != null)
         {
-            //goMainActivity();
+            goMainActivity();
         }
 
         etUsername = findViewById(R.id.etUsername);
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                //loginUser(username,password);
+                Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
                 goMainActivity();
             }
         });
@@ -108,9 +108,16 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "login error, username:"+username);
                     Log.e(TAG, "login error, password:"+password);
                     Log.e(TAG, "Issues with login",e);
+
+                    if(e.getCode() == ParseException.INVALID_SESSION_TOKEN)
+                    {
+                        ((ParseApplication)getApplication()).reinitAfterCrash();
+                    }
+
                     return;
                 }
 
+                Toast.makeText(LoginActivity.this, "Log in successful", Toast.LENGTH_SHORT).show();
                 goMainActivity();
                 }
         });

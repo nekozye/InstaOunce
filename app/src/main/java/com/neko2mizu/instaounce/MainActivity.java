@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ActivityResultLauncher<Intent> actreslauncher;
+    private ActivityResultLauncher<Intent> accountlauncher;
     private FloatingActionButton flbtnPost;
+    private FloatingActionButton flbtnAccount;
     private Context self_context;
 
 
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT);
+
 
         self_context = this;
 
@@ -47,9 +49,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            // There are no request codes
                             Intent data = result.getData();
+                        }
+                    }
+                });
 
+        accountlauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent data = result.getData();
                         }
                     }
                 });
@@ -66,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        flbtnAccount = findViewById(R.id.logout);
+
+        flbtnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(self_context, LogoutActivity.class);
+                accountlauncher.launch(intent);
+            }
+        });
 
     }
 

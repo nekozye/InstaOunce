@@ -5,8 +5,11 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 import android.app.Application;
+import android.util.Log;
 
 public class ParseApplication extends Application {
+
+    private static final String TAG = "ParseApplication";
 
     // Initializes Parse SDK as soon as the application is created
     @Override
@@ -27,6 +30,21 @@ public class ParseApplication extends Application {
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.networkInterceptors().add(httpLoggingInterceptor);
         */
+
+
+
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId(getString(R.string.back4app_app_id))
+                .clientKey(getString(R.string.back4app_client_key))
+                .server(getString(R.string.back4app_server_url))
+                .build()
+        );
+
+    }
+
+    public void reinitAfterCrash(){
+        Log.i(TAG,"Restarting after session failure");
+        Parse.destroy();
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(getString(R.string.back4app_app_id))
                 .clientKey(getString(R.string.back4app_client_key))
@@ -34,5 +52,6 @@ public class ParseApplication extends Application {
                 .build()
         );
     }
+
 
 }
