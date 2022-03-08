@@ -11,4 +11,9 @@
     <string name="post_button_prompt">Submit</string>
     <string name="register_button_text">SIGN UP</string>
     <string name="logout_button_text">Log Off</string>
+    <string name="text_action_bar_home">Home</string>
+    <string name="text_action_bar_compose">New Post</string>
+    <string name="text_action_bar_profile">Account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

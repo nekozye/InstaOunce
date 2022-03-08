@@ -1,37 +1,31 @@
 package com.neko2mizu.instaounce;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
+import android.view.MenuItem;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.neko2mizu.instaounce.objects.Post;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-
-import java.util.List;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.neko2mizu.instaounce.fragments.ComposePostFragment;
+import com.neko2mizu.instaounce.fragments.HomePostFragment;
+import com.neko2mizu.instaounce.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
 
-    private ActivityResultLauncher<Intent> actreslauncher;
-    private ActivityResultLauncher<Intent> accountlauncher;
-    private FloatingActionButton flbtnPost;
-    private FloatingActionButton flbtnAccount;
-    private Context self_context;
+    final FragmentManager fragmentManager = getSupportFragmentManager();
+    private BottomNavigationView bottomNavigationView;
+
+    final Fragment fragment_compose = new ComposePostFragment();
+    final Fragment fragment_home = new HomePostFragment();
+    final Fragment fragment_profile = new ProfileFragment();
+
 
 
     @Override
@@ -39,76 +33,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bottomNavigationView = findViewById(R.id.bottom_nav);
 
-
-        self_context = this;
-
-        actreslauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            Intent data = result.getData();
-                        }
-                    }
-                });
-
-        accountlauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            Intent data = result.getData();
-                        }
-                    }
-                });
-
-
-
-        flbtnPost = findViewById(R.id.addpost);
-
-        flbtnPost.setOnClickListener(new View.OnClickListener() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(self_context, PostActivity.class);
-                actreslauncher.launch(intent);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                switch (item.getItemId()) {
+                    case R.id.action_bar_compose:
+                        fragment = fragment_compose;
+                        break;
+                    case R.id.action_bar_home:
+                        fragment = fragment_home;
+                        break;
+                    case R.id.action_bar_profile:
+                    default:
+                        fragment = fragment_profile;
+                        break;
+                }
+
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                return true;
             }
         });
 
-        flbtnAccount = findViewById(R.id.logout);
+        bottomNavigationView.setSelectedItemId(R.id.action_bar_home);
 
-        flbtnAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(self_context, LogoutActivity.class);
-                accountlauncher.launch(intent);
-            }
-        });
+
+
 
     }
 
-    private void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        Log.i(TAG, "Querying posts:");
-        query.include(Post.KEY_USER);
 
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                Log.i(TAG, "Recieval:");
-                if( e != null)
-                {
-                    Log.e(TAG, "Fail on findInBackground():",e);
-                    return;
-                }
-
-                for(Post post: posts)
-                {
-                    Log.i(TAG, "Post:"+post.getDescription());
-                }
-            }
-        });
-    }
 }

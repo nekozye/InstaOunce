@@ -10,4 +10,5 @@
     <color name="borderColor">#777777</color>
     <color name="dark_skyblue">#00AEFF</color>
     <color name="green">#3AA522</color>
+    <color name="app_logo_grays">#5F5F5F</color>
 </resources>
