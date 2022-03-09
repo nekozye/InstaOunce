@@ -20,8 +20,10 @@
         <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/activity_post.xml" value="0.33" />
         <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/fragment_compose_post.xml" value="0.259963768115942" />
         <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/fragment_home_post.xml" value="0.259963768115942" />
+        <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/fragment_login.xml" value="0.21422101449275363" />
         <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/fragment_profile_post.xml" value="0.21422101449275363" />
-        <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/item_post.xml" value="0.1" />
+        <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/instagram_action_bar.xml" value="0.22" />
+        <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/layout/item_post.xml" value="0.25" />
         <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/menu/menu_bottom_nav.xml" value="0.5541666666666667" />
         <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2315" />
         <entry key="..\:/Linux/AndroidApplications/InstaOunce/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2315" />

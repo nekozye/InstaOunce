@@ -3,14 +3,18 @@ package com.neko2mizu.instaounce.fragments;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.neko2mizu.instaounce.PostsAdapter;
 import com.neko2mizu.instaounce.R;
@@ -26,10 +30,12 @@ import java.util.List;
 public class HomePostFragment extends Fragment {
 
     private static final String TAG = "HomePostFragment";
-    private RecyclerView rvPosts;
+    protected RecyclerView rvPosts;
+    protected SwipeRefreshLayout swipeContainer;
+
+
     protected PostsAdapter adapter;
 
-    protected List<Post> allPosts;
 
     public HomePostFragment(){
 
@@ -46,18 +52,28 @@ public class HomePostFragment extends Fragment {
 
         rvPosts = view.findViewById(R.id.rvPosts);
 
-        allPosts = new ArrayList<Post>();
+        swipeContainer = view.findViewById(R.id.swipeContainer);
 
-        adapter = new PostsAdapter(getContext(), allPosts);
+        adapter = new PostsAdapter(getContext(), new ArrayList<Post>());
 
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        queryPosts();
+
+        newQueryPosts();
+
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                newQueryPosts();
+                swipeContainer.setRefreshing(false);
+            }
+        });
     }
 
 
-    protected void queryPosts() {
+    protected void newQueryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
 
         query.include(Post.KEY_USER);
@@ -75,8 +91,9 @@ public class HomePostFragment extends Fragment {
                 {
                     Log.i(TAG, "Post:" + post.getDescription() + ", username: "+ post.getUser().getUsername());
                 }
-                allPosts.addAll(posts);
-                adapter.notifyDataSetChanged();
+
+                adapter.clear();
+                adapter.addAll(posts);
             }
         });
     }
